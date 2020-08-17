@@ -5,7 +5,7 @@
 
 # OSfooler-NG
  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Version: 1.0b](https://img.shields.io/badge/version-1.0b-blue.svg)
+![Version: 1.0c](https://img.shields.io/badge/version-1.0c-blue.svg)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://GitHub.com/segofensiva/OSfooler-ng/graphs/commit-activity)
  
 # Synopsis
@@ -23,7 +23,7 @@ By now it's been tested fine on Arch and CentOS7.
 # Install
 To get this version, just use git:
 ```
-$ git clone https://github.com/moonbaseDelta/OSfooler-ng.git
+$ git clone https://github.com/janisblaus/OSfooler-ng.git
 ```
 
 

@@ -128,19 +128,19 @@ def get_ip_address(ifname):
     )[20:24])
 
 def show_banner():
-	print ("""\
-		
+  print ("""\
+    
                  -o:      
                 .o+`      
                 :o-.-.` ``
-          `-::::+o/-:++/o/	          _____             __                                        
+          `-::::+o/-:++/o/            _____             __                                        
         `/+//+/--ss///:-.    ____  ______/ ________   ____ |  |   ___________            ____   ____  
         /o:` .:/:ss         /  _ \/  ___\   __/  _ \ /  _ \|  | _/ __ \_  __ \  ______  /    \ / ___\ 
         oo`.-` .+s+        (  <_> \___ \ |  |(  <_> (  <_> |  |_\  ___/|  | \/ /_____/ |   |  / /_/  >
   .-::::oo--/+/+o/`         \____/____  >|__| \____/ \____/|____/\___  |__|            |___|  \___  / 
  /+/++:-/s+///:-`                     \/                             \/                     \/_____/ 
  `  `-///s:                           
-      `-os.                           v1.0b (https://github.com/segofensiva/osfooler-ng)
+      `-os.                           v1.0c (https://github.com/segofensiva/osfooler-ng)
        /s:                                                                                                                                                   
 """)
 
@@ -662,7 +662,7 @@ def cb_p0f( pl ):
         else:
             pl.accept()
     else:
-		    pl.accept()
+        pl.accept()
       #  return 0
 
 # Process nmap packets
@@ -806,12 +806,12 @@ def update_nmap_db():
   new_db=m.hexdigest()
   old_db=md5(get_nmap_os_db_path())
   if (new_db != old_db):
-		f = open(get_nmap_os_db_path(), "w")
-		f.write(data)
-		f.close()
-		print "updated!"
+    f = open(get_nmap_os_db_path(), "w")
+    f.write(data)
+    f.close()
+    print "updated!"
   else:
-	  print "latest!"
+    print "latest!"
 
 def md5(fname):
   hash_md5 = hashlib.md5()
@@ -953,7 +953,7 @@ def main():
   procs = []
   # nmap mode
   if opts.os:  
-    os.system("iptables -A INPUT -j NFQUEUE --queue-num %s" % q_num0) 
+    os.system("iptables -A INPUT -i %s -j NFQUEUE --queue-num %s" % (interface, q_num0)) 
     proc = Process(target=init,args=(q_num0,))
     procs.append(proc)
     proc.start() 
@@ -961,7 +961,7 @@ def main():
   if (opts.osgenre):
     global home_ip
     home_ip = get_ip_address(interface)  
-    os.system("iptables -A OUTPUT -p TCP --syn -j NFQUEUE --queue-num %s" % q_num1) 
+    os.system("iptables -A OUTPUT -p TCP -o %s --syn -j NFQUEUE --queue-num %s" % (interface, q_num1)) 
     proc = Process(target=init,args=(q_num1,))
     procs.append(proc)
     proc.start() 
@@ -974,9 +974,9 @@ def main():
       print
       # Flush all iptabels rules
       if (q_num0 >= 0):
-        os.system("iptables -D INPUT -j NFQUEUE --queue-num %s" % q_num0) 
+        os.system("iptables -D INPUT -i %s -j NFQUEUE --queue-num %s" % (interface, q_num0)) 
       if (q_num1 >= 1):
-        os.system("iptables -D OUTPUT -p TCP --syn -j NFQUEUE --queue-num %s" % q_num1) 
+        os.system("iptables -D OUTPUT -p TCP -o %s --syn -j NFQUEUE --queue-num %s" % (interface, q_num1)) 
       print " [+] Active queues removed"
       print " [+] Exiting OSfooler..."
       #for p in multiprocessing.active_children():
